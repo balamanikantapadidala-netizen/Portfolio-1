@@ -1,0 +1,2494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>P.BALA MANIKANTA | Portfolio</title>
+
+<style>
+
+/* =====================================================
+   BASIC
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #08111f;
+    color: white;
+    line-height: 1.6;
+    transition: 0.3s;
+    overflow-x: hidden;
+}
+
+
+/* =====================================================
+   PASSWORD LOCK SCREEN
+===================================================== */
+
+#lockScreen {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 99999;
+
+    background:
+        radial-gradient(
+            circle at center,
+            #10243e 0%,
+            #08111f 55%,
+            #050a12 100%
+        );
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    padding: 20px;
+
+    transition:
+        opacity 0.8s ease,
+        visibility 0.8s ease;
+}
+
+#lockScreen.unlock {
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    pointer-events: none;
+}
+
+
+.lock-box {
+
+    width: 100%;
+
+    max-width: 430px;
+
+    padding: 45px 30px;
+
+    text-align: center;
+
+    background:
+        rgba(17, 28, 47, 0.95);
+
+    border:
+        1px solid #263b5a;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 25px 80px
+        rgba(0,0,0,0.5);
+
+    animation:
+        lockAppear 1s ease;
+}
+
+@keyframes lockAppear {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(40px)
+            scale(0.9);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0)
+            scale(1);
+
+    }
+
+}
+
+
+.lock-icon {
+
+    width: 80px;
+
+    height: 80px;
+
+    margin: auto auto 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    border-radius: 50%;
+
+    background: #102c3e;
+
+    border:
+        2px solid #00e5ff;
+
+    font-size: 38px;
+
+    box-shadow:
+        0 0 30px
+        rgba(0,229,255,0.25);
+}
+
+.lock-box h1 {
+
+    color: #00e5ff;
+
+    margin-bottom: 8px;
+
+    font-size: 28px;
+}
+
+.lock-box h2 {
+
+    font-size: 18px;
+
+    color: #c4ccda;
+
+    margin-bottom: 10px;
+}
+
+.lock-box > p {
+
+    color: #8f9caf;
+
+    font-size: 14px;
+
+    margin-bottom: 25px;
+}
+
+
+.password-input {
+
+    width: 100%;
+
+    padding: 14px 18px;
+
+    background: #08111f;
+
+    color: white;
+
+    border:
+        1px solid #263b5a;
+
+    border-radius: 12px;
+
+    outline: none;
+
+    font-size: 16px;
+
+    text-align: center;
+
+    transition: 0.3s;
+}
+
+.password-input:focus {
+
+    border-color: #00e5ff;
+
+    box-shadow:
+        0 0 15px
+        rgba(0,229,255,0.15);
+}
+
+
+.unlock-btn {
+
+    width: 100%;
+
+    margin-top: 15px;
+
+    padding: 14px;
+
+    border: none;
+
+    border-radius: 12px;
+
+    background: #00e5ff;
+
+    color: #001014;
+
+    font-weight: bold;
+
+    font-size: 16px;
+
+    cursor: pointer;
+
+    transition: 0.3s;
+}
+
+.unlock-btn:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,229,255,0.25);
+}
+
+
+/* PASSWORD DISPLAY */
+
+.password-hint {
+
+    margin-top: 22px;
+
+    padding: 12px;
+
+    background: #0b1728;
+
+    border:
+        1px dashed #263b5a;
+
+    border-radius: 10px;
+
+    color: #9ba8bb;
+
+    font-size: 13px;
+}
+
+.password-hint strong {
+
+    display: block;
+
+    color: #00e5ff;
+
+    margin-top: 4px;
+
+    font-size: 17px;
+
+    letter-spacing: 2px;
+}
+
+
+/* ERROR MESSAGE */
+
+#passwordError {
+
+    min-height: 22px;
+
+    margin-top: 12px;
+
+    color: #ff5c7a;
+
+    font-size: 14px;
+}
+
+
+/* SHAKE ANIMATION */
+
+.shake {
+
+    animation:
+        shake 0.4s ease;
+}
+
+@keyframes shake {
+
+    0%, 100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-8px);
+    }
+
+    75% {
+        transform: translateX(8px);
+    }
+
+}
+
+
+/* =====================================================
+   PAGE LOADER
+===================================================== */
+
+.page-loader {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 9999;
+
+    background: #08111f;
+
+    display: flex;
+
+    justify-content: center;
+
+    align-items: center;
+
+    flex-direction: column;
+
+    transition:
+        opacity 0.8s ease,
+        visibility 0.8s ease;
+}
+
+.page-loader.hide {
+
+    opacity: 0;
+
+    visibility: hidden;
+}
+
+.loader-name {
+
+    color: #00e5ff;
+
+    font-size: 32px;
+
+    font-weight: bold;
+
+    letter-spacing: 3px;
+
+    overflow: hidden;
+
+    white-space: nowrap;
+
+    border-right:
+        3px solid #00e5ff;
+
+    width: 0;
+
+    animation:
+        typing 2.5s steps(18) forwards,
+        blink 0.7s infinite;
+}
+
+.loader-subtitle {
+
+    margin-top: 15px;
+
+    color: #9ba8bb;
+
+    opacity: 0;
+
+    animation:
+        fadeIn 1s ease 2.3s forwards;
+}
+
+.loader-line {
+
+    width: 0;
+
+    height: 3px;
+
+    margin-top: 25px;
+
+    background: #00e5ff;
+
+    border-radius: 10px;
+
+    box-shadow:
+        0 0 15px #00e5ff;
+
+    animation:
+        loaderLine 2.5s ease forwards;
+}
+
+@keyframes typing {
+
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 18ch;
+    }
+
+}
+
+@keyframes blink {
+
+    50% {
+        border-color: transparent;
+    }
+
+}
+
+@keyframes fadeIn {
+
+    from {
+
+        opacity: 0;
+
+        transform:
+            translateY(15px);
+
+    }
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateY(0);
+
+    }
+
+}
+
+@keyframes loaderLine {
+
+    from {
+        width: 0;
+    }
+
+    to {
+        width: 220px;
+    }
+
+}
+
+
+/* =====================================================
+   SCROLL PROGRESS
+===================================================== */
+
+.scroll-progress {
+
+    position: fixed;
+
+    top: 0;
+
+    left: 0;
+
+    height: 4px;
+
+    width: 0%;
+
+    background: #00e5ff;
+
+    z-index: 10000;
+
+    box-shadow:
+        0 0 10px #00e5ff;
+}
+
+
+/* =====================================================
+   NAVBAR
+===================================================== */
+
+header {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 1000;
+
+    background:
+        rgba(8,17,31,0.92);
+
+    backdrop-filter:
+        blur(12px);
+
+    border-bottom:
+        1px solid #20304a;
+}
+
+.navbar {
+
+    max-width: 1150px;
+
+    margin: auto;
+
+    height: 70px;
+
+    padding: 0 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+}
+
+.logo {
+
+    font-size: 30px;
+
+    font-weight: bold;
+
+    color: #00e5ff;
+}
+
+.nav-links {
+
+    display: flex;
+
+    gap: 28px;
+
+    list-style: none;
+}
+
+.nav-links a {
+
+    color: white;
+
+    text-decoration: none;
+
+    transition: 0.3s;
+}
+
+.nav-links a:hover {
+
+    color: #00e5ff;
+}
+
+#themeBtn {
+
+    border: none;
+
+    background: #17243a;
+
+    color: white;
+
+    padding: 10px 13px;
+
+    border-radius: 50%;
+
+    cursor: pointer;
+
+    font-size: 16px;
+
+    transition: 0.3s;
+}
+
+#themeBtn:hover {
+
+    transform:
+        rotate(20deg)
+        scale(1.1);
+}
+
+
+/* =====================================================
+   HERO
+===================================================== */
+
+.hero {
+
+    max-width: 1150px;
+
+    min-height: 90vh;
+
+    margin: auto;
+
+    padding: 80px 20px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 60px;
+}
+
+.hero-content {
+
+    max-width: 650px;
+
+    opacity: 0;
+
+    transform:
+        translateX(-60px);
+
+    animation:
+        heroLeft 1s ease 2.8s forwards;
+}
+
+.profile-card {
+
+    width: 340px;
+
+    padding: 40px 25px;
+
+    text-align: center;
+
+    background: #111c2f;
+
+    border:
+        1px solid #263b5a;
+
+    border-radius: 25px;
+
+    box-shadow:
+        0 20px 50px
+        rgba(0,0,0,0.35);
+
+    opacity: 0;
+
+    transform:
+        translateX(60px);
+
+    animation:
+        heroRight 1s ease 3s forwards;
+}
+
+@keyframes heroLeft {
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateX(0);
+
+    }
+
+}
+
+@keyframes heroRight {
+
+    to {
+
+        opacity: 1;
+
+        transform:
+            translateX(0);
+
+    }
+
+}
+
+.hello {
+
+    color: #00e5ff;
+
+    letter-spacing: 4px;
+
+    font-weight: bold;
+}
+
+.hero h1 {
+
+    font-size: 62px;
+
+    margin: 10px 0;
+}
+
+.hero h1 span {
+
+    color: #00e5ff;
+}
+
+.hero h2 {
+
+    color: #c4ccda;
+
+    margin-bottom: 20px;
+}
+
+.intro {
+
+    color: #9ba8bb;
+
+    font-size: 18px;
+
+    margin-bottom: 30px;
+}
+
+.buttons {
+
+    display: flex;
+
+    gap: 15px;
+}
+
+.btn {
+
+    text-decoration: none;
+
+    background: #00e5ff;
+
+    color: #001014;
+
+    padding: 13px 25px;
+
+    border-radius: 30px;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.btn:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,229,255,0.25);
+}
+
+.btn.outline {
+
+    background: transparent;
+
+    color: #00e5ff;
+
+    border:
+        1px solid #00e5ff;
+}
+
+
+/* =====================================================
+   PROFILE
+===================================================== */
+
+.profile-circle {
+
+    width: 180px;
+
+    height: 180px;
+
+    margin:
+        auto auto 20px;
+
+    border-radius: 50%;
+
+    overflow: hidden;
+
+    border:
+        4px solid #00e5ff;
+
+    box-shadow:
+        0 0 30px
+        rgba(0,229,255,0.35);
+}
+
+.profile-circle img {
+
+    width: 100%;
+
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+.profile-card p {
+
+    color: #9ba8bb;
+}
+
+.status {
+
+    margin-top: 20px;
+
+    color: #00e5ff;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   SECTIONS
+===================================================== */
+
+.section {
+
+    max-width: 1150px;
+
+    margin: auto;
+
+    padding: 90px 20px;
+}
+
+.section-title {
+
+    text-align: center;
+
+    font-size: 40px;
+
+    margin-bottom: 50px;
+
+    color: #00e5ff;
+}
+
+
+/* =====================================================
+   SCROLL ANIMATION
+===================================================== */
+
+.reveal {
+
+    opacity: 0;
+
+    transform:
+        translateY(60px);
+
+    transition:
+        opacity 0.8s ease,
+        transform 0.8s ease;
+}
+
+.reveal.active {
+
+    opacity: 1;
+
+    transform:
+        translateY(0);
+}
+
+.reveal-card {
+
+    opacity: 0;
+
+    transform:
+        translateY(40px)
+        scale(0.95);
+
+    transition:
+        opacity 0.7s ease,
+        transform 0.7s ease;
+}
+
+.reveal-card.active {
+
+    opacity: 1;
+
+    transform:
+        translateY(0)
+        scale(1);
+}
+
+
+/* =====================================================
+   ABOUT
+===================================================== */
+
+.about-container {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 30px;
+}
+
+.about-text,
+.details {
+
+    background: #111c2f;
+
+    padding: 35px;
+
+    border-radius: 20px;
+
+    border:
+        1px solid #263b5a;
+}
+
+.about-text h3 {
+
+    margin-bottom: 20px;
+
+    font-size: 25px;
+}
+
+.about-text p {
+
+    color: #aab5c6;
+
+    margin-bottom: 15px;
+}
+
+.details p {
+
+    padding: 13px 0;
+
+    border-bottom:
+        1px solid #263b5a;
+}
+
+.details strong {
+
+    display: block;
+
+    color: #00e5ff;
+}
+
+
+/* =====================================================
+   SKILLS
+===================================================== */
+
+.skills-container {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(5, 1fr);
+
+    gap: 20px;
+}
+
+.skill-card {
+
+    background: #111c2f;
+
+    padding: 30px 15px;
+
+    text-align: center;
+
+    border-radius: 20px;
+
+    border:
+        1px solid #263b5a;
+
+    transition: 0.3s;
+}
+
+.skill-card:hover {
+
+    transform:
+        translateY(-8px);
+
+    border-color:
+        #00e5ff;
+
+    box-shadow:
+        0 15px 30px
+        rgba(0,229,255,0.12);
+}
+
+.skill-icon {
+
+    font-size: 35px;
+
+    margin-bottom: 15px;
+}
+
+.skill-card p {
+
+    color: #8f9caf;
+
+    font-size: 14px;
+
+    margin-top: 8px;
+}
+
+
+/* =====================================================
+   INTERESTS
+===================================================== */
+
+.interest-container {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 25px;
+}
+
+.interest-card {
+
+    background: #111c2f;
+
+    padding: 30px;
+
+    text-align: center;
+
+    border-radius: 20px;
+
+    border:
+        1px solid #263b5a;
+
+    transition: 0.3s;
+}
+
+.interest-card:hover {
+
+    transform:
+        translateY(-7px);
+
+    border-color:
+        #00e5ff;
+
+    box-shadow:
+        0 15px 30px
+        rgba(0,229,255,0.12);
+}
+
+.interest-card span {
+
+    font-size: 45px;
+}
+
+.interest-card h3 {
+
+    margin: 10px 0;
+}
+
+.interest-card p {
+
+    color: #99a5b8;
+}
+
+
+/* =====================================================
+   TECHNOLOGY
+===================================================== */
+
+.goal-box {
+
+    max-width: 800px;
+
+    margin: auto;
+
+    padding: 45px;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            135deg,
+            #111c2f,
+            #17263e
+        );
+
+    border-radius: 25px;
+
+    border:
+        1px solid #263b5a;
+}
+
+.goal-box h3 {
+
+    color: #00e5ff;
+
+    margin-bottom: 15px;
+}
+
+.goal-box p {
+
+    color: #aab5c6;
+}
+
+
+/* =====================================================
+   CONTACT
+===================================================== */
+
+.contact-box {
+
+    text-align: center;
+
+    background: #111c2f;
+
+    padding: 50px;
+
+    border-radius: 25px;
+
+    border:
+        1px solid #263b5a;
+}
+
+.contact-box p {
+
+    color: #aab5c6;
+}
+
+.contact-btn {
+
+    margin-top: 25px;
+
+    padding: 13px 30px;
+
+    border: none;
+
+    border-radius: 30px;
+
+    background: #00e5ff;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    transition: 0.3s;
+}
+
+.contact-btn:hover {
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        0 10px 25px
+        rgba(0,229,255,0.25);
+}
+
+#message {
+
+    margin-top: 20px;
+
+    color: #00e5ff !important;
+}
+
+
+/* =====================================================
+   BACK TO TOP
+===================================================== */
+
+#topBtn {
+
+    position: fixed;
+
+    right: 25px;
+
+    bottom: 25px;
+
+    width: 45px;
+
+    height: 45px;
+
+    border: none;
+
+    border-radius: 50%;
+
+    background: #00e5ff;
+
+    color: #001014;
+
+    font-size: 20px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transition: 0.3s;
+
+    z-index: 999;
+}
+
+#topBtn.show {
+
+    opacity: 1;
+
+    visibility: visible;
+}
+
+#topBtn:hover {
+
+    transform:
+        translateY(-5px);
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+footer {
+
+    text-align: center;
+
+    padding: 40px 20px;
+
+    background: #050a12;
+
+    border-top:
+        1px solid #20304a;
+}
+
+footer h3 {
+
+    color: #00e5ff;
+
+    font-size: 25px;
+}
+
+footer p {
+
+    color: #8c98aa;
+}
+
+.copyright {
+
+    margin-top: 10px;
+
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   LIGHT MODE
+===================================================== */
+
+.light-mode {
+
+    background: #f4f7fb;
+
+    color: #111827;
+}
+
+.light-mode header {
+
+    background:
+        rgba(244,247,251,0.92);
+}
+
+.light-mode .nav-links a {
+
+    color: #111827;
+}
+
+.light-mode .profile-card,
+.light-mode .about-text,
+.light-mode .details,
+.light-mode .skill-card,
+.light-mode .interest-card,
+.light-mode .goal-box,
+.light-mode .contact-box {
+
+    background: white;
+
+    border-color:
+        #dce2eb;
+}
+
+.light-mode .intro,
+.light-mode .about-text p,
+.light-mode .details p,
+.light-mode .skill-card p,
+.light-mode .interest-card p,
+.light-mode .goal-box p {
+
+    color: #555f70;
+}
+
+.light-mode .page-loader {
+
+    background: #f4f7fb;
+}
+
+.light-mode .loader-subtitle {
+
+    color: #555f70;
+}
+
+.light-mode footer {
+
+    background: #e8edf5;
+
+    border-color:
+        #dce2eb;
+}
+
+
+/* =====================================================
+   TABLET
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .hero {
+
+        flex-direction: column;
+
+        text-align: center;
+    }
+
+    .hero-content {
+
+        max-width: 700px;
+    }
+
+    .buttons {
+
+        justify-content: center;
+    }
+
+    .skills-container {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 650px) {
+
+    .navbar {
+
+        height: 60px;
+    }
+
+    .logo {
+
+        font-size: 20px;
+    }
+
+    .nav-links {
+
+        display: none;
+    }
+
+    .hero {
+
+        padding-top: 60px;
+    }
+
+    .hero h1 {
+
+        font-size: 42px;
+    }
+
+    .hero h2 {
+
+        font-size: 20px;
+    }
+
+    .intro {
+
+        font-size: 16px;
+    }
+
+    .profile-card {
+
+        width: 100%;
+
+        max-width: 340px;
+    }
+
+    .about-container {
+
+        grid-template-columns: 1fr;
+    }
+
+    .skills-container {
+
+        grid-template-columns:
+            1fr 1fr;
+    }
+
+    .interest-container {
+
+        grid-template-columns: 1fr;
+    }
+
+    .section-title {
+
+        font-size: 32px;
+    }
+
+    .buttons {
+
+        flex-direction: column;
+
+        align-items: center;
+    }
+
+    .btn {
+
+        width: 100%;
+
+        max-width: 280px;
+    }
+
+    .loader-name {
+
+        font-size: 22px;
+    }
+
+    #topBtn {
+
+        right: 15px;
+
+        bottom: 15px;
+    }
+
+    .lock-box {
+
+        padding:
+            35px 20px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     PASSWORD LOCK
+===================================================== -->
+
+<div id="lockScreen">
+
+    <div class="lock-box">
+
+        <div class="lock-icon">
+            🔐
+        </div>
+
+        <h1>
+            Welcome
+        </h1>
+
+        <h2>
+            P.BALA MANIKANTA
+        </h2>
+
+        <p>
+            Enter the password to view my portfolio.
+        </p>
+
+
+        <input
+            type="password"
+            id="passwordInput"
+            class="password-input"
+            placeholder="Enter password"
+            autocomplete="off"
+        >
+
+
+        <button
+            class="unlock-btn"
+            onclick="unlockPortfolio()">
+
+            🔓 Unlock Portfolio
+
+        </button>
+
+
+        <div id="passwordError"></div>
+
+
+        <!-- PASSWORD DISPLAY -->
+
+        <div class="password-hint">
+
+            Password:
+
+            <strong>
+                BALA2026
+            </strong>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =====================================================
+     OPENING ANIMATION
+===================================================== -->
+
+<div
+    class="page-loader"
+    id="pageLoader">
+
+    <div class="loader-name">
+        P.BALA MANIKANTA
+    </div>
+
+    <div class="loader-subtitle">
+        B.Tech CSE (AI & ML)
+    </div>
+
+    <div class="loader-line"></div>
+
+</div>
+
+
+<!-- =====================================================
+     SCROLL PROGRESS
+===================================================== -->
+
+<div
+    class="scroll-progress"
+    id="scrollProgress">
+</div>
+
+
+<!-- =====================================================
+     NAVBAR
+===================================================== -->
+
+<header>
+
+<nav class="navbar">
+
+    <div class="logo">
+        P.BALA MANIKANTA |
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a href="#home">
+                Home
+            </a>
+        </li>
+
+        <li>
+            <a href="#about">
+                About
+            </a>
+        </li>
+
+        <li>
+            <a href="#skills">
+                Skills
+            </a>
+        </li>
+
+        <li>
+            <a href="#interests">
+                Interests
+            </a>
+        </li>
+
+        <li>
+            <a href="#contact">
+                Contact
+            </a>
+        </li>
+
+    </ul>
+
+    <button id="themeBtn">
+        🌙
+    </button>
+
+</nav>
+
+</header>
+
+
+<!-- =====================================================
+     HOME
+===================================================== -->
+
+<section
+    id="home"
+    class="hero">
+
+    <div class="hero-content">
+
+        <p class="hello">
+            HELLO, I'M
+        </p>
+
+        <h1>
+            P.
+            <span>
+                BALA MANIKANTA
+            </span>
+        </h1>
+
+        <h2>
+            B.Tech CSE (AI & ML) Student
+        </h2>
+
+        <p class="intro">
+
+            I am a passionate B.Tech student
+            interested in programming,
+            technology, app development
+            and creating innovative
+            technical projects.
+
+        </p>
+
+        <div class="buttons">
+
+            <a
+                href="#about"
+                class="btn">
+
+                Explore My Portfolio
+
+            </a>
+
+            <a
+                href="#contact"
+                class="btn outline">
+
+                Contact Me
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- PROFILE -->
+
+    <div class="profile-card">
+
+        <div class="profile-circle">
+
+            <img
+                src="profile.jpg"
+                alt="P.BALA MANIKANTA Profile Photo">
+
+        </div>
+
+        <h2>
+            P.BALA MANIKANTA
+        </h2>
+
+        <p>
+            B.Tech CSE - AI & ML
+        </p>
+
+        <p>
+            MRDU
+        </p>
+
+        <div class="status">
+            ● Learning • Creating • Innovating
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     ABOUT
+===================================================== -->
+
+<section
+    id="about"
+    class="section reveal">
+
+    <h2 class="section-title">
+        About Me
+    </h2>
+
+    <div class="about-container">
+
+        <div class="about-text reveal-card">
+
+            <h3>
+                Who Am I?
+            </h3>
+
+            <p>
+                I am P.BALA MANIKANTA,
+                a B.Tech CSE student
+                specializing in Artificial
+                Intelligence and Machine
+                Learning at MRDU.
+            </p>
+
+            <p>
+                I enjoy learning programming
+                languages, exploring new
+                technologies and creating
+                new applications and
+                technical ideas.
+            </p>
+
+            <p>
+                My goal is to continuously
+                improve my technical skills
+                and build useful and
+                creative projects.
+            </p>
+
+        </div>
+
+
+        <div class="details reveal-card">
+
+            <p>
+
+                <strong>
+                    👤 Name
+                </strong>
+
+                P.BALA MANIKANTA
+
+            </p>
+
+            <p>
+
+                <strong>
+                    🎓 Education
+                </strong>
+
+                B.Tech CSE - AI & ML
+
+            </p>
+
+            <p>
+
+                <strong>
+                    🏫 College
+                </strong>
+
+                MRDU
+
+            </p>
+
+            <p>
+
+                <strong>
+                    🆔 Roll No
+                </strong>
+
+                26HEU06R306
+
+            </p>
+
+            <p>
+
+                <strong>
+                    📍 Address
+                </strong>
+
+                Santhanuthalapadu Mandal,
+                Ongole, Prakasam District,
+                Andhra Pradesh
+
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     SKILLS
+===================================================== -->
+
+<section
+    id="skills"
+    class="section reveal">
+
+    <h2 class="section-title">
+        My Skills
+    </h2>
+
+    <div class="skills-container">
+
+
+        <div class="skill-card reveal-card">
+
+            <div class="skill-icon">
+                🐍
+            </div>
+
+            <h3>
+                Python
+            </h3>
+
+            <p>
+                Programming & Problem Solving
+            </p>
+
+        </div>
+
+
+        <div class="skill-card reveal-card">
+
+            <div class="skill-icon">
+                ☕
+            </div>
+
+            <h3>
+                Java
+            </h3>
+
+            <p>
+                Object-Oriented Programming
+            </p>
+
+        </div>
+
+
+        <div class="skill-card reveal-card">
+
+            <div class="skill-icon">
+                JS
+            </div>
+
+            <h3>
+                JavaScript
+            </h3>
+
+            <p>
+                Interactive Web Development
+            </p>
+
+        </div>
+
+
+        <div class="skill-card reveal-card">
+
+            <div class="skill-icon">
+                🌐
+            </div>
+
+            <h3>
+                HTML
+            </h3>
+
+            <p>
+                Web Development
+            </p>
+
+        </div>
+
+
+        <div class="skill-card reveal-card">
+
+            <div class="skill-icon">
+                🎨
+            </div>
+
+            <h3>
+                CSS
+            </h3>
+
+            <p>
+                Modern Web Design
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     HOBBIES
+===================================================== -->
+
+<section
+    id="interests"
+    class="section reveal">
+
+    <h2 class="section-title">
+        Hobbies & Interests
+    </h2>
+
+    <div class="interest-container">
+
+
+        <div class="interest-card reveal-card">
+
+            <span>🎬</span>
+
+            <h3>
+                Watching Movies
+            </h3>
+
+            <p>
+                I enjoy watching movies
+                during my free time.
+            </p>
+
+        </div>
+
+
+        <div class="interest-card reveal-card">
+
+            <span>🎵</span>
+
+            <h3>
+                Listening to Songs
+            </h3>
+
+            <p>
+                Music is one of my favorite
+                ways to relax.
+            </p>
+
+        </div>
+
+
+        <div class="interest-card reveal-card">
+
+            <span>🏏</span>
+
+            <h3>
+                Cricket
+            </h3>
+
+            <p>
+                I enjoy watching
+                cricket matches.
+            </p>
+
+        </div>
+
+
+        <div class="interest-card reveal-card">
+
+            <span>📱</span>
+
+            <h3>
+                Creating Apps
+            </h3>
+
+            <p>
+                I like thinking about
+                new application ideas.
+            </p>
+
+        </div>
+
+
+        <div class="interest-card reveal-card">
+
+            <span>🤖</span>
+
+            <h3>
+                Technical Toys
+            </h3>
+
+            <p>
+                I am interested in creating
+                innovative technical toys.
+            </p>
+
+        </div>
+
+
+        <div class="interest-card reveal-card">
+
+            <span>💡</span>
+
+            <h3>
+                Technology Topics
+            </h3>
+
+            <p>
+                I enjoy learning interesting
+                and new technology topics.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     TECHNOLOGY
+===================================================== -->
+
+<section
+    class="section reveal">
+
+    <h2 class="section-title">
+        My Technology Interests
+    </h2>
+
+    <div class="goal-box reveal-card">
+
+        <h3>
+            🚀 Create • Learn • Innovate
+        </h3>
+
+        <p>
+
+            I am interested in creating
+            new apps, exploring Artificial
+            Intelligence and Machine
+            Learning, developing technical
+            toys and learning about
+            new technologies.
+
+        </p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     CONTACT
+===================================================== -->
+
+<section
+    id="contact"
+    class="section reveal">
+
+    <h2 class="section-title">
+        Let's Connect
+    </h2>
+
+    <div class="contact-box reveal-card">
+
+        <p>
+
+            Interested in programming,
+            technology and creative projects?
+
+        </p>
+
+        <button
+            onclick="sayHello()"
+            class="contact-btn">
+
+            Say Hello 👋
+
+        </button>
+
+        <p id="message"></p>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     BACK TO TOP
+===================================================== -->
+
+<button
+    id="topBtn"
+    onclick="scrollToTop()">
+
+    ↑
+
+</button>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <h3>
+        P.BALA MANIKANTA |
+    </h3>
+
+    <p>
+        P.BALA MANIKANTA |
+        B.Tech CSE (AI & ML)
+    </p>
+
+    <p class="copyright">
+        © 2026 P.BALA MANIKANTA.
+        All Rights Reserved.
+    </p>
+
+</footer>
+
+
+<!-- =====================================================
+     JAVASCRIPT
+===================================================== -->
+
+<script>
+
+
+/* =====================================================
+   PASSWORD
+===================================================== */
+
+const portfolioPassword =
+    "BALA2026";
+
+
+function unlockPortfolio() {
+
+    const input =
+        document.getElementById(
+            "passwordInput"
+        );
+
+    const error =
+        document.getElementById(
+            "passwordError"
+        );
+
+    const lockScreen =
+        document.getElementById(
+            "lockScreen"
+        );
+
+
+    if (
+        input.value ===
+        portfolioPassword
+    ) {
+
+        error.textContent =
+            "Access granted! Welcome 👋";
+
+
+        error.style.color =
+            "#00e5ff";
+
+
+        setTimeout(function () {
+
+            lockScreen.classList.add(
+                "unlock"
+            );
+
+            document.body.style.overflow =
+                "auto";
+
+        }, 500);
+
+
+    } else {
+
+        error.textContent =
+            "❌ Incorrect password. Try again.";
+
+        error.style.color =
+            "#ff5c7a";
+
+
+        lockScreen
+            .querySelector(".lock-box")
+            .classList.remove("shake");
+
+
+        void lockScreen
+            .querySelector(".lock-box")
+            .offsetWidth;
+
+
+        lockScreen
+            .querySelector(".lock-box")
+            .classList.add("shake");
+
+
+        input.value = "";
+
+        input.focus();
+
+    }
+
+}
+
+
+/* Press Enter to unlock */
+
+document
+    .getElementById("passwordInput")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (
+                event.key === "Enter"
+            ) {
+
+                unlockPortfolio();
+
+            }
+
+        }
+    );
+
+
+/* Keep portfolio locked initially */
+
+document.body.style.overflow =
+    "hidden";
+
+
+/* =====================================================
+   PAGE LOADER
+===================================================== */
+
+window.addEventListener(
+    "load",
+    function () {
+
+        setTimeout(
+            function () {
+
+                document
+                    .getElementById(
+                        "pageLoader"
+                    )
+                    .classList.add(
+                        "hide"
+                    );
+
+            },
+            3500
+        );
+
+    }
+);
+
+
+/* =====================================================
+   DARK / LIGHT MODE
+===================================================== */
+
+const themeBtn =
+    document.getElementById(
+        "themeBtn"
+    );
+
+
+themeBtn.addEventListener(
+    "click",
+    function () {
+
+        document.body.classList.toggle(
+            "light-mode"
+        );
+
+
+        if (
+            document.body.classList.contains(
+                "light-mode"
+            )
+        ) {
+
+            themeBtn.textContent =
+                "☀️";
+
+            localStorage.setItem(
+                "theme",
+                "light"
+            );
+
+        } else {
+
+            themeBtn.textContent =
+                "🌙";
+
+            localStorage.setItem(
+                "theme",
+                "dark"
+            );
+
+        }
+
+    }
+);
+
+
+/* Remember theme */
+
+if (
+    localStorage.getItem("theme")
+    === "light"
+) {
+
+    document.body.classList.add(
+        "light-mode"
+    );
+
+    themeBtn.textContent =
+        "☀️";
+
+}
+
+
+/* =====================================================
+   SCROLL REVEAL
+===================================================== */
+
+const revealElements =
+    document.querySelectorAll(
+        ".reveal, .reveal-card"
+    );
+
+
+const observer =
+    new IntersectionObserver(
+
+        function (entries) {
+
+            entries.forEach(
+                function (entry) {
+
+                    if (
+                        entry.isIntersecting
+                    ) {
+
+                        entry.target
+                            .classList
+                            .add("active");
+
+                    }
+
+                }
+            );
+
+        },
+
+        {
+            threshold: 0.15
+        }
+
+    );
+
+
+revealElements.forEach(
+    function (element) {
+
+        observer.observe(element);
+
+    }
+);
+
+
+/* =====================================================
+   SCROLL PROGRESS
+===================================================== */
+
+window.addEventListener(
+    "scroll",
+    function () {
+
+        const scrollTop =
+            window.scrollY;
+
+
+        const documentHeight =
+            document.documentElement
+                .scrollHeight
+            -
+            document.documentElement
+                .clientHeight;
+
+
+        const percentage =
+            (
+                scrollTop /
+                documentHeight
+            ) * 100;
+
+
+        document
+            .getElementById(
+                "scrollProgress"
+            )
+            .style.width =
+            percentage + "%";
+
+
+        /* Back to top */
+
+        const topBtn =
+            document.getElementById(
+                "topBtn"
+            );
+
+
+        if (
+            scrollTop > 500
+        ) {
+
+            topBtn.classList.add(
+                "show"
+            );
+
+        } else {
+
+            topBtn.classList.remove(
+                "show"
+            );
+
+        }
+
+    }
+);
+
+
+/* =====================================================
+   BACK TO TOP
+===================================================== */
+
+function scrollToTop() {
+
+    window.scrollTo({
+
+        top: 0,
+
+        behavior: "smooth"
+
+    });
+
+}
+
+
+/* =====================================================
+   HELLO BUTTON
+===================================================== */
+
+function sayHello() {
+
+    const message =
+        document.getElementById(
+            "message"
+        );
+
+
+    message.textContent =
+        "Thanks for visiting my portfolio! 👋";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
